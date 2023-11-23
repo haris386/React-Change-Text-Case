@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -17,10 +17,38 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function TextChange() {
   const [text, setText] = useState("");
+  const [countCharacter, setCountCharacter] = useState(0);
+
+  useEffect(() => {
+    setCountCharacter(text.length);
+  }, [text]);
 
   const handleChange = (event) => {
     setText(event.target.value);
   };
+
+  const toUpperCase = () => {
+    const upperCaseText = text.toUpperCase();
+    setText(upperCaseText);
+  };
+  const toLowerCase = () => {
+    const lowerCaseText = text.toLowerCase();
+    setText(lowerCaseText);
+  };
+
+  const capitalizeWords = () => {
+    const capitalizedSentence = text.replace(/\b\w/g, (match) => match.toUpperCase());
+    setText(capitalizedSentence);
+  };
+  
+  const sentenceCase = () => {
+    const sentenceCaseResult = text
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    setText(sentenceCaseResult);
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -29,7 +57,7 @@ function TextChange() {
             <Item>xs</Item>
           </Grid>
           <Grid xs={12} sm={12} md={8}>
-            <h1>React Case Wizard</h1>
+            <h1 style={{ color: "black" }}>React Case Wizard</h1>
             <TextField
               multiline
               minRows={4}
@@ -41,19 +69,23 @@ function TextChange() {
               variant="outlined"
             />
             <div>
-              <h2 style={{ textAlign: "left" }}>Characters Count:</h2>
-              <p style={{ textAlign: "left" }}>{text}</p>
+              <h2 style={{ textAlign: "left", color: "black" }}>
+                Characters Count: {countCharacter}
+              </h2>
             </div>
 
             <Stack spacing={2} direction="row">
-              <Button variant="outlined">UPPER CASE</Button>
-              <Button variant="outlined">lower case</Button>
-              <Button variant="outlined">Capitalize Word</Button>
+              <Button variant="outlined" onClick={toUpperCase}>
+                UPPER CASE
+              </Button>
+              <Button variant="outlined" onClick={toLowerCase}>
+                lower case
+              </Button>
+              <Button variant="outlined" onClick={capitalizeWords}>Capitalize Word</Button>
               <Button variant="outlined">aLterNaTe cAsE</Button>
-              <Button variant="outlined">Sentence Case</Button>
+              <Button variant="outlined" onClick={sentenceCase}>Sentence Case</Button>
               <Button variant="outlined">tOGGLE cASE</Button>
             </Stack>
-
           </Grid>
           <Grid xs={12} sm={12} md={2}>
             <Item>xs</Item>
