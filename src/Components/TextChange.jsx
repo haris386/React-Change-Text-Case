@@ -41,12 +41,27 @@ function TextChange() {
     setText(capitalizedSentence);
   };
   
-  const sentenceCase = () => {
-    const sentenceCaseResult = text
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    setText(sentenceCaseResult);
+  // const sentenceCase = () => {
+  //   const sentenceCaseResult = text
+  //     .split(' ')
+  //     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  //     .join(' ');
+  //   setText(sentenceCaseResult);
+  // };
+
+  const toKebabCase = () => {
+    const kebabCaseResult = text
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^\w-]/g, ''); // Remove non-word characters
+    setText(kebabCaseResult);
+  };
+
+  const toCamelCase = () => {
+    const camelCaseResult = text
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+    setText(camelCaseResult);
   };
 
   return (
@@ -82,9 +97,8 @@ function TextChange() {
                 lower case
               </Button>
               <Button variant="outlined" onClick={capitalizeWords}>Capitalize Word</Button>
-              <Button variant="outlined">aLterNaTe cAsE</Button>
-              <Button variant="outlined" onClick={sentenceCase}>Sentence Case</Button>
-              <Button variant="outlined">tOGGLE cASE</Button>
+              <Button variant="outlined" onClick={toKebabCase}>kebab-case</Button>
+              <Button variant="outlined" onClick={toCamelCase}>camelCase</Button>
             </Stack>
           </Grid>
           <Grid xs={12} sm={12} md={2}>
