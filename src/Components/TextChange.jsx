@@ -18,10 +18,17 @@ const Item = styled(Paper)(({ theme }) => ({
 function TextChange() {
   const [text, setText] = useState("");
   const [countCharacter, setCountCharacter] = useState(0);
+  const [countWords, setCountWords] = useState(0);
+
 
   useEffect(() => {
     setCountCharacter(text.length);
+    
+    // Split the text into words and count them
+    const words = text.split(/\s+/).filter((word) => word !== '');
+    setCountWords(words.length);
   }, [text]);
+  
 
   const handleChange = (event) => {
     setText(event.target.value);
@@ -86,6 +93,11 @@ function TextChange() {
             <div>
               <h2 style={{ textAlign: "left", color: "black" }}>
                 Characters Count: {countCharacter}
+              </h2>
+            </div>
+            <div>
+              <h2 style={{ textAlign: "left", color: "black" }}>
+                Word Count: {countWords}
               </h2>
             </div>
 
