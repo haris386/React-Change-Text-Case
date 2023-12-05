@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+body {
+  background: hsla(267, 75%, 31%, 1);
+
+background: linear-gradient(90deg, hsla(267, 75%, 31%, 1) 0%, hsla(291, 100%, 49%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(267, 75%, 31%, 1) 0%, hsla(291, 100%, 49%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(267, 75%, 31%, 1) 0%, hsla(291, 100%, 49%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#4a148c", endColorstr="#d500f9", GradientType=1 );
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

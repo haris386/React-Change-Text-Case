@@ -7,6 +7,11 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
+import './style.css'
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -16,6 +21,25 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function TextChange() {
+
+  const theme = createTheme({
+    palette: {
+      mode: 'dark', // or 'light' based on your preference
+      primary: {
+        main: '#fff', // Set primary color to white
+      },
+    },
+    components: {
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderColor: '#fff', // Set border color to white
+          },
+        },
+      },
+    },
+  });
+
   const [text, setText] = useState("");
   const [countCharacter, setCountCharacter] = useState(0);
   const [countWords, setCountWords] = useState(0);
@@ -73,13 +97,15 @@ function TextChange() {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
+
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
           <Grid xs={12} sm={12} md={2}>
-            <Item>xs</Item>
+            {/* <Item>xs</Item> */}
           </Grid>
           <Grid xs={12} sm={12} md={8}>
-            <h1 style={{ color: "black" }}>React Case Wizard</h1>
+            <h1 style={{ color: "white" }} className="title-heading">React &nbsp;Case&nbsp; Wizard</h1>
             <TextField
               multiline
               minRows={4}
@@ -89,35 +115,37 @@ function TextChange() {
               placeholder="Type something..."
               fullWidth
               variant="outlined"
+              inputProps={{ style: { color: "white", borderColor: "white" } }}
             />
             <div>
-              <h2 style={{ textAlign: "left", color: "black" }}>
+              <h2 style={{ textAlign: "left", color: "white" }}>
                 Characters Count: {countCharacter}
               </h2>
             </div>
             <div>
-              <h2 style={{ textAlign: "left", color: "black" }}>
+              <h2 style={{ textAlign: "left", color: "white" }}>
                 Word Count: {countWords}
               </h2>
             </div>
 
-            <Stack spacing={2} direction="row">
-              <Button variant="outlined" onClick={toUpperCase}>
+            <Stack spacing={2} direction="row" sx={{ justifyContent: 'center' }}>
+              <Button variant="outlined" onClick={toUpperCase} style = {{color: "white", border: "1px solid white"}}>
                 UPPER CASE
               </Button>
-              <Button variant="outlined" onClick={toLowerCase}>
+              <Button variant="outlined" sx={{textTransform: 'lowercase'}} onClick={toLowerCase} style = {{color: "white", border: "1px solid white"}}>
                 lower case
               </Button>
-              <Button variant="outlined" onClick={capitalizeWords}>Capitalize Word</Button>
-              <Button variant="outlined" onClick={toKebabCase}>kebab-case</Button>
-              <Button variant="outlined" onClick={toCamelCase}>camelCase</Button>
+              <Button variant="outlined" sx={{ textTransform: 'capitalize' }} onClick={capitalizeWords} style = {{color: "white", border: "1px solid white"}}>Capitalize Word</Button>
+              <Button variant="outlined" sx={{textTransform: 'lowercase'}} onClick={toKebabCase} style = {{color: "white", border: "1px solid white"}}>kebab-case</Button>
+              <Button variant="outlined" sx={{textTransform: 'lowercase'}} onClick={toCamelCase} style = {{color: "white", border: "1px solid white"}}>camel<span style={{ textTransform: 'capitalize' }}>C</span>ase</Button>
             </Stack>
           </Grid>
           <Grid xs={12} sm={12} md={2}>
-            <Item>xs</Item>
+            {/* <Item>xs</Item> */}
           </Grid>
         </Grid>
       </Box>
+    </ThemeProvider>
     </>
   );
 }
